@@ -48,5 +48,13 @@ namespace Aluraflix.Controllers
             if(resultado.IsFailed) return NotFound();
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletaVideo(int id)
+        {
+            Result resultado = _videoService.DeletaVideo(id);
+            if (resultado.IsFailed) return NotFound();
+            return NoContent();
+        }
     }
 }
