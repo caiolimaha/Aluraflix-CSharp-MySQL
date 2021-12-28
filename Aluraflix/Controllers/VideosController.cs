@@ -17,6 +17,21 @@ namespace Aluraflix.Controllers
             _videoService = videoService;
         }
 
+        [HttpPost]
+        public IActionResult AdicionaVideo([FromBody] CreateVideoDto videoDto)
+        {
+            ReadVideoDto readDto = _videoService.AdicionaVideo(videoDto);
+            return CreatedAtAction(nameof(RecuperaVideoPorId), new { Id = readDto.Id }, readDto);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult RecuperaVideoPorId(int id)
+        {
+            ReadVideoDto readDto = _videoService.RecuperaVideoPorId(id);
+            if(readDto == null) return NotFound();
+            return Ok(readDto);
+        }
+
         [HttpGet]
         public IActionResult RecuperaVideos()
         {

@@ -25,5 +25,25 @@ namespace Aluraflix.Services
             if(videos == null) return null;
             return _mapper.Map<List<ReadVideoDto>>(videos);
         }
+
+        public ReadVideoDto AdicionaVideo(CreateVideoDto videoDto)
+        {
+            Video video = _mapper.Map<Video>(videoDto);
+            _context.Videos.Add(video);
+            _context.SaveChanges();
+            return _mapper.Map<ReadVideoDto>(video);
+        }
+
+        public ReadVideoDto RecuperaVideoPorId(int id)
+        {
+            Video video = _context.Videos.FirstOrDefault(v => v.Id == id);
+            if (video != null)
+            {
+                return _mapper.Map<ReadVideoDto>(video);
+                
+            }
+            return null;
+
+        }
     }
 }
