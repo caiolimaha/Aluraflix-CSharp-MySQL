@@ -1,5 +1,6 @@
 ﻿using Aluraflix.Data.Dtos.Video;
 using Aluraflix.Services;
+using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -28,7 +29,7 @@ namespace Aluraflix.Controllers
         public IActionResult RecuperaVideoPorId(int id)
         {
             ReadVideoDto readDto = _videoService.RecuperaVideoPorId(id);
-            if(readDto == null) return NotFound();
+            if(readDto == null) return NotFound("Não encontrado.");
             return Ok(readDto);
         }
 
@@ -38,6 +39,14 @@ namespace Aluraflix.Controllers
             List<ReadVideoDto> readDto = _videoService.RecuperaVideos();
             if(readDto == null) return NotFound();
             return Ok(readDto);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult AtualizaVideo(int id, [FromBody] UpdateVideoDto videoDto)
+        {
+            Result resultado = _videoService.AtualizaVideo(id, videoDto);
+            if(resultado.IsFailed) return NotFound();
+            return NoContent();
         }
     }
 }

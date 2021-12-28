@@ -2,6 +2,7 @@
 using Aluraflix.Data.Dtos.Video;
 using Aluraflix.Models;
 using AutoMapper;
+using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,18 @@ namespace Aluraflix.Services
             }
             return null;
 
+        }
+
+        public Result AtualizaVideo(int id, UpdateVideoDto videoDto)
+        {
+            Video video = _context.Videos.FirstOrDefault(v => v.Id == id);
+            if(video == null)
+            {
+                return Result.Fail("Video não encontrado.");
+            }
+            _mapper.Map(videoDto, video);
+            _context.SaveChanges();
+            return Result.Ok();
         }
     }
 }
