@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Aluraflix.Models
 {
-    public class Video
+    public class Categoria
     {
         [Key]
         [Required]
@@ -10,9 +11,7 @@ namespace Aluraflix.Models
         [Required]
         public string Titulo { get; set; }
         [Required]
-        public string Descricao { get; set; }
-        [Required]
-        public string Url { get; set; }
+        public string Cor { get; set; }
 
     }
 }

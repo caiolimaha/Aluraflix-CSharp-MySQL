@@ -4,11 +4,11 @@ namespace Aluraflix.Data.Dtos.Video
 {
     public class CreateVideoDto
     {
-        [Required]
+        [Required(ErrorMessage = "O título é obrigatorio")]
         public string Titulo { get; set; }
-        [Required]
+        [Required(ErrorMessage = "A descrição é obrigatoria")]
         public string Descricao { get; set; }
-        [Required]
+        [Required(ErrorMessage = "URL invalida")]
         public string Url { get; set; }
     }
 }

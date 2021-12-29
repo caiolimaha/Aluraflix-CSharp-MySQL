@@ -11,7 +11,13 @@ namespace Aluraflix.Data
 
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+
+        }
+
         public DbSet<Video> Videos { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
 
     }
 
