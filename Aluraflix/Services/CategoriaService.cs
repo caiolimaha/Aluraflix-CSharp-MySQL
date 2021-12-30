@@ -2,7 +2,9 @@
 using Aluraflix.Data.Dtos.Categoria;
 using Aluraflix.Models;
 using AutoMapper;
+using FluentResults;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Aluraflix.Services
@@ -35,6 +37,28 @@ namespace Aluraflix.Services
                 return _mapper.Map<ReadCategoriaDto>(categoria);
             }
             return null;
+        }
+
+        public List<ReadCategoriaDto> RecuperaCategorias()
+        {
+            List<Categoria> categorias = _context.Categorias.ToList();
+            if(categorias != null)
+            {
+                return _mapper.Map<List<ReadCategoriaDto>>(categorias);
+            }
+            return null;
+        }
+
+        public Result AtualizaCategoria(int id, CreateCategoriaDto categoriaDto)
+        {
+            Categoria categoria = _context.Categorias.FirstOrDefault(categoria => categoria.Id == id);
+            if (categoria == null)
+            {
+                return Result.Fail("Categoria não foi encontrada");
+            }
+            _mapper.Map(categoriaDto, categoria);
+            _context.SaveChanges();
+            return Result.Ok();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Aluraflix.Data.Dtos.Categoria;
 using Aluraflix.Services;
+using FluentResults;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Aluraflix.Controllers
 {
@@ -23,12 +25,28 @@ namespace Aluraflix.Controllers
             return CreatedAtAction(nameof(RecuperaCategoriaPorId), new { Id = readDto.Id }, readDto);
         }
 
+        [HttpGet]
+        public IActionResult RecuperaCategorias()
+        {
+            List<ReadCategoriaDto> categoriasDto = _categoriaService.RecuperaCategorias();
+            if(categoriasDto == null) return NotFound();
+            return Ok(categoriasDto);
+        }
+
         [HttpGet("{id}")]
         public IActionResult RecuperaCategoriaPorId(int id)
         {
             ReadCategoriaDto readDto = _categoriaService.RecuperaCategoriaPorId(id);
             if(readDto == null) return NotFound("Não encontrado.");
             return Ok(readDto);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult AtualizaCategoria(int id, [FromBody] CreateCategoriaDto categoriaDto)
+        {
+            Result resultado = _categoriaService.AtualizaCategoria(id, categoriaDto);
+            if (resultado.IsFailed) return NotFound();
+            return Ok();
         }
     }
 }
