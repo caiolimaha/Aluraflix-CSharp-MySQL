@@ -1,5 +1,5 @@
 ﻿using Aluraflix.Data;
-using Aluraflix.Data.Dtos.Video;
+using Aluraflix.Data.Dtos;
 using Aluraflix.Models;
 using AutoMapper;
 using FluentResults;

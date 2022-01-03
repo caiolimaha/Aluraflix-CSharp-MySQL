@@ -1,4 +1,4 @@
-﻿using Aluraflix.Data.Dtos.Video;
+﻿using Aluraflix.Data.Dtos;
 using Aluraflix.Services;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;

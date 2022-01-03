@@ -1,6 +1,7 @@
-﻿using Aluraflix.Data.Dtos.Categoria;
+﻿using Aluraflix.Data.Dtos;
 using Aluraflix.Models;
 using AutoMapper;
+using System.Linq;
 
 namespace Aluraflix.Profiles
 {

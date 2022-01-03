@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Aluraflix.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace Aluraflix.Data.Dtos.Video
+namespace Aluraflix.Data.Dtos
 {
     public class ReadVideoDto
     {
@@ -13,5 +14,6 @@ namespace Aluraflix.Data.Dtos.Video
         public string Descricao { get; set; }
         [Required]
         public string Url { get; set; }
+        public Categoria Categoria { get; set; }
     }
 }

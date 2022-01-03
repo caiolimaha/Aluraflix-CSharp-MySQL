@@ -1,6 +1,7 @@
-﻿using Aluraflix.Data.Dtos.Video;
+﻿using Aluraflix.Data.Dtos;
 using Aluraflix.Models;
 using AutoMapper;
+
 
 namespace Aluraflix.Profiles
 {

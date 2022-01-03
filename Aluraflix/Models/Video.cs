@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Aluraflix.Models
 {
@@ -13,6 +14,9 @@ namespace Aluraflix.Models
         public string Descricao { get; set; }
         [Required]
         public string Url { get; set; }
+        [JsonIgnore]
+        public virtual Categoria Categoria { get; set; }
+        public int CategoriaId { get; set; }
 
     }
 }

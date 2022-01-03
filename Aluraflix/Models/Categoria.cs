@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Aluraflix.Models
 {
@@ -12,6 +13,8 @@ namespace Aluraflix.Models
         public string Titulo { get; set; }
         [Required]
         public string Cor { get; set; }
+        [JsonIgnore]
+        public virtual List<Video> Videos { get; set; }
 
     }
 }

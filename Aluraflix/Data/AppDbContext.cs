@@ -13,7 +13,10 @@ namespace Aluraflix.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
+            builder.Entity<Video>()
+                .HasOne(video => video.Categoria)
+                .WithMany(categoria => categoria.Videos)
+                .HasForeignKey(video => video.CategoriaId);
         }
 
         public DbSet<Video> Videos { get; set; }

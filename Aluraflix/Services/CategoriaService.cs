@@ -1,5 +1,5 @@
 ﻿using Aluraflix.Data;
-using Aluraflix.Data.Dtos.Categoria;
+using Aluraflix.Data.Dtos;
 using Aluraflix.Models;
 using AutoMapper;
 using FluentResults;
@@ -57,6 +57,18 @@ namespace Aluraflix.Services
                 return Result.Fail("Categoria não foi encontrada");
             }
             _mapper.Map(categoriaDto, categoria);
+            _context.SaveChanges();
+            return Result.Ok();
+        }
+
+        public Result DeletaCategoria(int id)
+        {
+            Categoria categoria = _context.Categorias.FirstOrDefault(categoria => categoria.Id == id);
+            if(categoria == null)
+            {
+                return Result.Fail("Categoria não foi encontrada");
+            }
+            _context.Remove(categoria);
             _context.SaveChanges();
             return Result.Ok();
         }

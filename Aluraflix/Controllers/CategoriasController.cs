@@ -1,4 +1,4 @@
-﻿using Aluraflix.Data.Dtos.Categoria;
+﻿using Aluraflix.Data.Dtos;
 using Aluraflix.Services;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
@@ -46,6 +46,14 @@ namespace Aluraflix.Controllers
         {
             Result resultado = _categoriaService.AtualizaCategoria(id, categoriaDto);
             if (resultado.IsFailed) return NotFound();
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletaCategoria(int id)
+        {
+            Result resultado = _categoriaService.DeletaCategoria(id);
+            if(resultado.IsFailed) return NotFound();
             return Ok();
         }
     }

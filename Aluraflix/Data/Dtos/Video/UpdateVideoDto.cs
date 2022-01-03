@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Aluraflix.Data.Dtos.Video
+namespace Aluraflix.Data.Dtos
 {
     public class UpdateVideoDto
     {
@@ -10,5 +10,6 @@ namespace Aluraflix.Data.Dtos.Video
         public string Descricao { get; set; }
         [Required]
         public string Url { get; set; }
+        public int CategoriaId { get; set; }
     }
 }
