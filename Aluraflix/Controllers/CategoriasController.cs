@@ -56,5 +56,13 @@ namespace Aluraflix.Controllers
             if(resultado.IsFailed) return NotFound();
             return Ok();
         }
+
+        [HttpGet("{id}/videos")]
+        public IActionResult RecuperaVideoPorCategoria(int id)
+        {
+            List<ReadVideoDto> videos = _categoriaService.RecuperaVideoPorCategoria(id);
+            if(videos == null) return NotFound();
+            return Ok(videos);
+        }
     }
 }

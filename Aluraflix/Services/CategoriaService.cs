@@ -72,5 +72,19 @@ namespace Aluraflix.Services
             _context.SaveChanges();
             return Result.Ok();
         }
+
+        public List<ReadVideoDto> RecuperaVideoPorCategoria(int id)
+        {
+            List<Video> videos = _context.Videos.ToList();
+            if (videos == null)
+            {
+                return null;
+            }
+
+            IEnumerable<Video> query = from video in videos where video.CategoriaId == id select video;
+
+            videos = query.ToList();
+            return _mapper.Map<List<ReadVideoDto>>(videos);
+        }
     }
 }
