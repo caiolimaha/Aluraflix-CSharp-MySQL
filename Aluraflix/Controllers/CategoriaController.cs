@@ -8,12 +8,12 @@ namespace Aluraflix.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CategoriasController : ControllerBase
+    public class CategoriaController : ControllerBase
     {
 
         private CategoriaService _categoriaService;
 
-        public CategoriasController(CategoriaService categoriaService)
+        public CategoriaController(CategoriaService categoriaService)
         {
             _categoriaService = categoriaService;
         }
@@ -25,7 +25,7 @@ namespace Aluraflix.Controllers
             return CreatedAtAction(nameof(RecuperaCategoriaPorId), new { Id = readDto.Id }, readDto);
         }
 
-        [HttpGet]
+        [HttpGet("/categorias")]
         public IActionResult RecuperaCategorias()
         {
             List<ReadCategoriaDto> categoriasDto = _categoriaService.RecuperaCategorias();
@@ -39,6 +39,14 @@ namespace Aluraflix.Controllers
             ReadCategoriaDto readDto = _categoriaService.RecuperaCategoriaPorId(id);
             if(readDto == null) return NotFound("Não encontrado.");
             return Ok(readDto);
+        }
+
+        [HttpGet("{id}/videos")]
+        public IActionResult RecuperaVideoPorCategoria(int id)
+        {
+            List<ReadVideoDto> videos = _categoriaService.RecuperaVideoPorCategoria(id);
+            if (videos == null) return NotFound();
+            return Ok(videos);
         }
 
         [HttpPut("{id}")]
@@ -57,12 +65,5 @@ namespace Aluraflix.Controllers
             return Ok();
         }
 
-        [HttpGet("{id}/videos")]
-        public IActionResult RecuperaVideoPorCategoria(int id)
-        {
-            List<ReadVideoDto> videos = _categoriaService.RecuperaVideoPorCategoria(id);
-            if(videos == null) return NotFound();
-            return Ok(videos);
-        }
     }
 }

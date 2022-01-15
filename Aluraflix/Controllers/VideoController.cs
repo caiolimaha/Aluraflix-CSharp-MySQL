@@ -9,11 +9,11 @@ namespace Aluraflix.Controllers
     [ApiController]
     [Route("[controller]")]
 
-    public class VideosController : ControllerBase
+    public class VideoController : ControllerBase
     {
         private VideoService _videoService;
 
-        public VideosController(VideoService videoService)
+        public VideoController(VideoService videoService)
         {
             _videoService = videoService;
         }
@@ -33,11 +33,11 @@ namespace Aluraflix.Controllers
             return Ok(readDto);
         }
 
-        [HttpGet]
-        public IActionResult RecuperaVideos()
+        [HttpGet("/videos")]
+        public IActionResult RecuperaVideos([FromQuery] string nomeDoVideo)
         {
-            List<ReadVideoDto> readDto = _videoService.RecuperaVideos();
-            if(readDto == null) return NotFound();
+            List<ReadVideoDto> readDto = _videoService.RecuperaVideoPorTitulo(nomeDoVideo);
+            if (readDto == null) return NotFound();
             return Ok(readDto);
         }
 

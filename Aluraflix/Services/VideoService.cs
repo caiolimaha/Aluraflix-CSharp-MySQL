@@ -20,13 +20,6 @@ namespace Aluraflix.Services
             _mapper = mapper;
         }
 
-        public List<ReadVideoDto> RecuperaVideos()
-        {
-            List<Video> videos = _context.Videos.ToList();
-            if(videos == null) return null;
-            return _mapper.Map<List<ReadVideoDto>>(videos);
-        }
-
         public ReadVideoDto AdicionaVideo(CreateVideoDto videoDto)
         {
             Video video = _mapper.Map<Video>(videoDto);
@@ -56,6 +49,25 @@ namespace Aluraflix.Services
             _mapper.Map(videoDto, video);
             _context.SaveChanges();
             return Result.Ok();
+        }
+
+        public List<ReadVideoDto> RecuperaVideoPorTitulo(string nomeDoVideo)
+        {
+            List<Video> videos = _context.Videos.ToList();
+            if (videos == null)
+            {
+                return null;
+            }
+            if (!string.IsNullOrEmpty(nomeDoVideo))
+            {
+                IEnumerable<Video> query = from video in videos
+                                           where video.Titulo.Contains(nomeDoVideo)
+                                           select video;
+
+                videos = query.ToList();
+                Console.WriteLine(videos);
+            }
+            return _mapper.Map<List<ReadVideoDto>>(videos);
         }
 
         public Result DeletaVideo(int id)

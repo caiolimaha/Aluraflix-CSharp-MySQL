@@ -81,7 +81,9 @@ namespace Aluraflix.Services
                 return null;
             }
 
-            IEnumerable<Video> query = from video in videos where video.CategoriaId == id select video;
+            IEnumerable<Video> query = from video in videos 
+                                       where video.CategoriaId == id 
+                                       select video;
 
             videos = query.ToList();
             return _mapper.Map<List<ReadVideoDto>>(videos);
