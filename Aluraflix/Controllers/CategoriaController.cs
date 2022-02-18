@@ -3,6 +3,7 @@ using Aluraflix.Services;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Aluraflix.Controllers
 {
@@ -19,48 +20,48 @@ namespace Aluraflix.Controllers
         }
 
         [HttpPost]
-        public IActionResult AdicionaCategoria([FromBody] CreateCategoriaDto categoriaDto)
+        public async Task<IActionResult> AdicionaCategoria([FromBody] CreateCategoriaDto categoriaDto)
         {
-            ReadCategoriaDto readDto = _categoriaService.AdicionaCategoria(categoriaDto);
+            ReadCategoriaDto readDto = await _categoriaService.AdicionaCategoria(categoriaDto);
             return CreatedAtAction(nameof(RecuperaCategoriaPorId), new { Id = readDto.Id }, readDto);
         }
 
-        [HttpGet("/categorias")]
-        public IActionResult RecuperaCategorias()
+        [HttpGet]
+        public async Task<IActionResult> RecuperaCategorias()
         {
-            List<ReadCategoriaDto> categoriasDto = _categoriaService.RecuperaCategorias();
+            List<ReadCategoriaDto> categoriasDto = await _categoriaService.RecuperaCategorias();
             if(categoriasDto == null) return NotFound();
             return Ok(categoriasDto);
         }
 
         [HttpGet("{id}")]
-        public IActionResult RecuperaCategoriaPorId(int id)
+        public async Task<IActionResult> RecuperaCategoriaPorId(int id)
         {
-            ReadCategoriaDto readDto = _categoriaService.RecuperaCategoriaPorId(id);
+            ReadCategoriaDto readDto = await _categoriaService.RecuperaCategoriaPorId(id);
             if(readDto == null) return NotFound("Não encontrado.");
             return Ok(readDto);
         }
 
         [HttpGet("{id}/videos")]
-        public IActionResult RecuperaVideoPorCategoria(int id)
+        public async Task<IActionResult> RecuperaVideoPorCategoria(int id)
         {
-            List<ReadVideoDto> videos = _categoriaService.RecuperaVideoPorCategoria(id);
+            List<ReadVideoDto> videos = await _categoriaService.RecuperaVideoPorCategoria(id);
             if (videos == null) return NotFound();
             return Ok(videos);
         }
 
         [HttpPut("{id}")]
-        public IActionResult AtualizaCategoria(int id, [FromBody] CreateCategoriaDto categoriaDto)
+        public async Task<IActionResult> AtualizaCategoria(int id, [FromBody] CreateCategoriaDto categoriaDto)
         {
-            Result resultado = _categoriaService.AtualizaCategoria(id, categoriaDto);
+            Result resultado = await _categoriaService.AtualizaCategoria(id, categoriaDto);
             if (resultado.IsFailed) return NotFound();
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeletaCategoria(int id)
+        public async Task<IActionResult> DeletaCategoria(int id)
         {
-            Result resultado = _categoriaService.DeletaCategoria(id);
+            Result resultado = await _categoriaService.DeletaCategoria(id);
             if(resultado.IsFailed) return NotFound();
             return Ok();
         }

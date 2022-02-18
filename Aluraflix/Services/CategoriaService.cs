@@ -3,9 +3,11 @@ using Aluraflix.Data.Dtos;
 using Aluraflix.Models;
 using AutoMapper;
 using FluentResults;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Aluraflix.Services
 {
@@ -21,17 +23,17 @@ namespace Aluraflix.Services
             _mapper = mapper;
         }
 
-        public ReadCategoriaDto AdicionaCategoria(CreateCategoriaDto categoriaDto)
+        public async Task<ReadCategoriaDto> AdicionaCategoria(CreateCategoriaDto categoriaDto)
         {
             Categoria categoria = _mapper.Map<Categoria>(categoriaDto);
             _context.Add(categoria);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return _mapper.Map<ReadCategoriaDto>(categoria);
         }
 
-        public ReadCategoriaDto RecuperaCategoriaPorId(int id)
+        public async Task<ReadCategoriaDto> RecuperaCategoriaPorId(int id)
         {
-            Categoria categoria = _context.Categorias.FirstOrDefault(categoria => categoria.Id == id);
+            Categoria categoria = await _context.Categorias.FirstOrDefaultAsync(categoria => categoria.Id == id);
             if(categoria != null)
             {
                 return _mapper.Map<ReadCategoriaDto>(categoria);
@@ -39,9 +41,9 @@ namespace Aluraflix.Services
             return null;
         }
 
-        public List<ReadCategoriaDto> RecuperaCategorias()
+        public async Task<List<ReadCategoriaDto>> RecuperaCategorias()
         {
-            List<Categoria> categorias = _context.Categorias.ToList();
+            List<Categoria> categorias = await _context.Categorias.ToListAsync();
             if(categorias != null)
             {
                 return _mapper.Map<List<ReadCategoriaDto>>(categorias);
@@ -49,33 +51,33 @@ namespace Aluraflix.Services
             return null;
         }
 
-        public Result AtualizaCategoria(int id, CreateCategoriaDto categoriaDto)
+        public async Task<Result> AtualizaCategoria(int id, CreateCategoriaDto categoriaDto)
         {
-            Categoria categoria = _context.Categorias.FirstOrDefault(categoria => categoria.Id == id);
+            Categoria categoria = await _context.Categorias.FirstOrDefaultAsync(categoria => categoria.Id == id);
             if (categoria == null)
             {
                 return Result.Fail("Categoria não foi encontrada");
             }
             _mapper.Map(categoriaDto, categoria);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Result.Ok();
         }
 
-        public Result DeletaCategoria(int id)
+        public async Task<Result> DeletaCategoria(int id)
         {
-            Categoria categoria = _context.Categorias.FirstOrDefault(categoria => categoria.Id == id);
+            Categoria categoria = await _context.Categorias.FirstOrDefaultAsync(categoria => categoria.Id == id);
             if(categoria == null)
             {
                 return Result.Fail("Categoria não foi encontrada");
             }
             _context.Remove(categoria);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Result.Ok();
         }
 
-        public List<ReadVideoDto> RecuperaVideoPorCategoria(int id)
+        public async Task<List<ReadVideoDto>> RecuperaVideoPorCategoria(int id)
         {
-            List<Video> videos = _context.Videos.ToList();
+            List<Video> videos = await _context.Videos.ToListAsync();
             if (videos == null)
             {
                 return null;

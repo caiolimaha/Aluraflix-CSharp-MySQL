@@ -3,9 +3,11 @@ using Aluraflix.Data.Dtos;
 using Aluraflix.Models;
 using AutoMapper;
 using FluentResults;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Aluraflix.Services
 {
@@ -20,17 +22,17 @@ namespace Aluraflix.Services
             _mapper = mapper;
         }
 
-        public ReadVideoDto AdicionaVideo(CreateVideoDto videoDto)
+        public async Task<ReadVideoDto> AdicionaVideo(CreateVideoDto videoDto)
         {
             Video video = _mapper.Map<Video>(videoDto);
             _context.Videos.Add(video);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return _mapper.Map<ReadVideoDto>(video);
         }
 
-        public ReadVideoDto RecuperaVideoPorId(int id)
+        public async Task<ReadVideoDto> RecuperaVideoPorId(int id)
         {
-            Video video = _context.Videos.FirstOrDefault(v => v.Id == id);
+            Video video = await _context.Videos.FirstOrDefaultAsync(v => v.Id == id);
             if (video != null)
             {
                 return _mapper.Map<ReadVideoDto>(video);
@@ -39,21 +41,21 @@ namespace Aluraflix.Services
             return null;
         }
 
-        public Result AtualizaVideo(int id, UpdateVideoDto videoDto)
+        public async Task<Result> AtualizaVideo(int id, UpdateVideoDto videoDto)
         {
-            Video video = _context.Videos.FirstOrDefault(v => v.Id == id);
+            Video video = await _context.Videos.FirstOrDefaultAsync(v => v.Id == id);
             if(video == null)
             {
                 return Result.Fail("Video não encontrado.");
             }
             _mapper.Map(videoDto, video);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Result.Ok();
         }
 
-        public List<ReadVideoDto> RecuperaVideoPorTitulo(string nomeDoVideo)
+        public async Task<List<ReadVideoDto>> RecuperaVideoPorTitulo(string nomeDoVideo)
         {
-            List<Video> videos = _context.Videos.ToList();
+            List<Video> videos = await _context.Videos.ToListAsync();
             if (videos == null)
             {
                 return null;
@@ -70,15 +72,15 @@ namespace Aluraflix.Services
             return _mapper.Map<List<ReadVideoDto>>(videos);
         }
 
-        public Result DeletaVideo(int id)
+        public async Task<Result> DeletaVideo(int id)
         {
-            Video video = _context.Videos.FirstOrDefault(v => v.Id == id);
+            Video video = await _context.Videos.FirstOrDefaultAsync(v => v.Id == id);
             if (video == null)
             {
                 return Result.Fail("Video não encontrado.");
             }
             _context.Remove(video);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Result.Ok();
         }
     }
