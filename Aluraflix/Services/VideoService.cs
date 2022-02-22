@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Aluraflix.Services
 {
-    public class VideoService
+    public class VideoService : IVideoService
     {
         private AppDbContext _context;
         private IMapper _mapper;

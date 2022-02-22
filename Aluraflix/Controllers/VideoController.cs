@@ -12,9 +12,9 @@ namespace Aluraflix.Controllers
 
     public class VideoController : ControllerBase
     {
-        private VideoService _videoService;
+        private IVideoService _videoService;
 
-        public VideoController(VideoService videoService)
+        public VideoController(IVideoService videoService)
         {
             _videoService = videoService;
         }
