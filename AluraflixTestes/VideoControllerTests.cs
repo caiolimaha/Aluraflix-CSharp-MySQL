@@ -1,6 +1,8 @@
 ﻿using Aluraflix.Controllers;
 using Aluraflix.Data.Dtos;
+using Aluraflix.Profiles;
 using Aluraflix.Services;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,37 +15,29 @@ namespace AluraflixTestes
 {
     public class VideoControllerTests : IDisposable
     {
-        //private Mock<IVideoService> _videoControllerMock = new Mock<IVideoService>();
+        private VideoService _videoService;
+        private IMapper _mapper;
 
-        //private VideoController _videoController;
+        public VideoControllerTests()
+        {
+            var dbInMemory = new DBInMemory();
+            var context = dbInMemory.GetContext();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<VideoProfile>();
+            });
+            _mapper = new Mapper(config);
+            _videoService = new VideoService(context, _mapper);
+        }
 
-        //public ITestOutputHelper Output { get; }
-
-
-
-
-        //public VideoControllerTests(ITestOutputHelper testOutputHelper)
-        //{
-        //    Output = testOutputHelper;
-        //    _videoController = new VideoController(_videoControllerMock.Object);
-        //}
-
-        //[Fact]
-        //public async Task ComValoresCorretos_AdicionaVideo_RetornaEndereco()
-        //{
-        //    //Arrange
-        //    //Act
-        //    //Assert
-        //}
-
-        //[Fact]
-        //public async Task ComValoresCorretos_RecuperaVideo_RetornaOk()
-        //{
-        //    //Arrange
-        //    //Act
-        //    //Assert
-
-        //}
+        [Fact]
+        public async Task RecuperarVideosPorTitulo()
+        {
+            //Act
+            var videos = await _videoService.RecuperaVideoPorTitulo("");
+            //Assert
+            Assert.Equal(2, videos.Count());
+        }
 
 
         public void Dispose()

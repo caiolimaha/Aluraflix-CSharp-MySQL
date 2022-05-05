@@ -28,8 +28,27 @@ namespace AluraflixTestes
         {
             if (_context.Database.EnsureCreated())
             {
-                //TODO
+                Categoria categoria = new Categoria();
+                categoria.Titulo = "CategoriaTeste";
+                categoria.Cor = "FFFF00";
+
+                Video video = new Video();
+                video.Titulo = "VideoTeste";
+                video.Descricao = "DescriçãoVideoTeste";
+                video.CategoriaId = 20;
+
+                Video video2 = new Video();
+                video.Titulo = "VideoTeste2";
+                video.Descricao = "DescriçãoVideoTeste2";
+                video.CategoriaId = 20;
+
+                _context.Categorias.Add(categoria);
+                _context.Videos.Add(video);
+                _context.Videos.Add(video2);
+                _context.SaveChanges();
             }
         }
+
+        public AppDbContext GetContext() => _context;
     }
 }
