@@ -7,10 +7,10 @@ namespace Aluraflix.Services
 {
     public interface IVideoService
     {
-        public Task<ReadVideoDto> AdicionaVideo(CreateVideoDto videoDto);
-        public Task<ReadVideoDto> RecuperaVideoPorId(int id);
-        public Task<Result> AtualizaVideo(int id, UpdateVideoDto videoDto);
-        public Task<List<ReadVideoDto>> RecuperaVideoPorTitulo(string nomeDoVideo);
-        public Task<Result> DeletaVideo(int id);
+        Task<ReadVideoDto> AdicionaVideo(CreateVideoDto videoDto);
+        Task<ReadVideoDto> RecuperaVideoPorId(int id);
+        Task<Result> AtualizaVideo(int id, UpdateVideoDto videoDto);
+        Task<List<ReadVideoDto>> RecuperaVideoPorTitulo(string nomeDoVideo);
+        Task<Result> DeletaVideo(int id);
     }
 }
