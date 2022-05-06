@@ -15,12 +15,12 @@ using Xunit.Abstractions;
 
 namespace AluraflixTestes
 {
-    public class VideoControllerTests : IDisposable
+    public class VideoServiceTests
     {
         private VideoService _videoService;
         private IMapper _mapper;
 
-        public VideoControllerTests()
+        public VideoServiceTests()
         {
             var dbInMemory = new DBInMemory();
             var context = dbInMemory.GetContext();
@@ -55,7 +55,7 @@ namespace AluraflixTestes
             var videos = await _videoService.RecuperaVideoPorTitulo("");
 
             //Assert
-            Assert.Equal(3, videos.Count());
+            Assert.Equal(2, videos.Count());
         }
 
         [Fact]
@@ -71,15 +71,18 @@ namespace AluraflixTestes
         [Fact]
         public async Task AtualizaVideo()
         {
-            //TODO
+            //Arrange
+            UpdateVideoDto videoUpdate = new UpdateVideoDto();
+            videoUpdate.Titulo = "VideoAtualizado";
+            videoUpdate.Descricao = "DescriçãoVideoTeste";
+            videoUpdate.CategoriaId = 20;
+
+            //Act
+            var video = await _videoService.AtualizaVideo(1, videoUpdate);
+
+            //Assert
+            Assert.IsType<Result>(video);
         }
 
-      
-
-
-        public void Dispose()
-        {
-            //Output.WriteLine("Execução Cleanup : Limpando os objetos");
-        }
     }
 }
