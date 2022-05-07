@@ -29,20 +29,32 @@ namespace AluraflixTestes
             if (_context.Database.EnsureCreated())
             {
                 Categoria categoria = new Categoria();
+                categoria.Id = 1;
                 categoria.Titulo = "CategoriaTeste";
                 categoria.Cor = "FFFF00";
 
+                Categoria categoria2 = new Categoria();
+                categoria2.Id = 2;
+                categoria2.Titulo = "CategoriaTeste2";
+                categoria2.Cor = "FFFFFF";
+
+                _context.Categorias.Add(categoria);
+                _context.Categorias.Add(categoria2);
+                _context.SaveChanges();
+
                 Video video = new Video();
+                video.Id = 1;
                 video.Titulo = "VideoTeste";
                 video.Descricao = "DescriçãoVideoTeste";
                 video.CategoriaId = 20;
 
                 Video video2 = new Video();
-                video.Titulo = "VideoTeste2";
-                video.Descricao = "DescriçãoVideoTeste2";
-                video.CategoriaId = 20;
+                video2.Id = 2;
+                video2.Titulo = "VideoTeste2";
+                video2.Descricao = "DescriçãoVideoTeste2";
+                video2.CategoriaId = 20;
 
-                _context.Categorias.Add(categoria);
+               
                 _context.Videos.Add(video);
                 _context.Videos.Add(video2);
                 _context.SaveChanges();

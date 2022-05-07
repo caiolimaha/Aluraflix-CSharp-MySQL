@@ -2,6 +2,7 @@
 using Aluraflix.Profiles;
 using Aluraflix.Services;
 using AutoMapper;
+using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,14 +34,15 @@ namespace AluraflixTestes
         {
             //Arrange
             CreateCategoriaDto categoriaCreate = new CreateCategoriaDto();
-            categoriaCreate.Titulo = "CategoriaTeste2";
+            categoriaCreate.Titulo = "CategoriaTeste3";
             categoriaCreate.Cor = "FFFFFF";
 
             //Act
             ReadCategoriaDto categoriaRead = await _categoriaService.AdicionaCategoria(categoriaCreate);
 
             //Assert
-            Assert.IsType<ReadCategoriaDto>(categoriaRead);
+            var numeroCategorias = await _categoriaService.RecuperaCategorias();
+            Assert.Equal(3, numeroCategorias.Count());
         }
 
         [Fact]
@@ -50,7 +52,7 @@ namespace AluraflixTestes
             var categorias = await _categoriaService.RecuperaCategorias();
 
             //Assert
-            Assert.Single(categorias);
+            Assert.Equal(2, categorias.Count());
         }
 
         [Fact]
@@ -61,6 +63,25 @@ namespace AluraflixTestes
 
             //Assert
             Assert.NotNull(categoria);
+            Assert.Equal("CategoriaTeste", categoria.Titulo);
         }
+
+        [Fact]
+        public async Task AtualizaCategoria()
+        {
+            //Arrange
+            UpdateCategoriaDto categoriaUpdate = new UpdateCategoriaDto();
+            categoriaUpdate.Titulo = "CategoriaUpdate";
+            categoriaUpdate.Cor = "FFFF00";
+
+            //Act
+            var resultado = await _categoriaService.AtualizaCategoria(2, categoriaUpdate);
+
+            //Assert
+            var categoria = await _categoriaService.RecuperaCategoriaPorId(2);
+            Assert.IsType<Result>(resultado);
+            Assert.Equal("CategoriaUpdate", categoria.Titulo);
+        }
+
     }
 }

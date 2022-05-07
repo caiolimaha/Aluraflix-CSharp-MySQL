@@ -1,17 +1,12 @@
-﻿using Aluraflix.Controllers;
+﻿
 using Aluraflix.Data.Dtos;
-using Aluraflix.Models;
 using Aluraflix.Profiles;
 using Aluraflix.Services;
 using AutoMapper;
 using FluentResults;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace AluraflixTestes
 {
@@ -45,7 +40,8 @@ namespace AluraflixTestes
             var readVideo = await _videoService.AdicionaVideo(videoDto);
 
             //Assert
-            Assert.IsType<ReadVideoDto>(readVideo);
+            var numeroVideos = await _videoService.RecuperaVideoPorTitulo("");
+            Assert.Equal(3, numeroVideos.Count());
         }
 
         [Fact]
@@ -62,10 +58,11 @@ namespace AluraflixTestes
         public async Task RecuperaVideoPorId()
         {
             //Act
-            var videos = await _videoService.RecuperaVideoPorId(1);
+            var video = await _videoService.RecuperaVideoPorId(1);
 
             //Assert
-            Assert.NotNull(videos);
+            Assert.NotNull(video);
+            Assert.Equal("VideoTeste", video.Titulo);
         }
 
         [Fact]
@@ -73,15 +70,17 @@ namespace AluraflixTestes
         {
             //Arrange
             UpdateVideoDto videoUpdate = new UpdateVideoDto();
-            videoUpdate.Titulo = "VideoAtualizado";
+            videoUpdate.Titulo = "VideoUpdate";
             videoUpdate.Descricao = "DescriçãoVideoTeste";
             videoUpdate.CategoriaId = 20;
 
             //Act
-            var video = await _videoService.AtualizaVideo(1, videoUpdate);
+            var resultado = await _videoService.AtualizaVideo(2, videoUpdate);
 
             //Assert
-            Assert.IsType<Result>(video);
+            var video = await _videoService.RecuperaVideoPorId(2);
+            Assert.IsType<Result>(resultado);
+            Assert.Equal("VideoUpdate",video.Titulo);
         }
 
     }

@@ -51,7 +51,7 @@ namespace Aluraflix.Services
             return null;
         }
 
-        public async Task<Result> AtualizaCategoria(int id, CreateCategoriaDto categoriaDto)
+        public async Task<Result> AtualizaCategoria(int id, UpdateCategoriaDto categoriaDto)
         {
             Categoria categoria = await _context.Categorias.FirstOrDefaultAsync(categoria => categoria.Id == id);
             if (categoria == null)

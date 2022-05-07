@@ -51,7 +51,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> AtualizaCategoria(int id, [FromBody] CreateCategoriaDto categoriaDto)
+        public async Task<IActionResult> AtualizaCategoria(int id, [FromBody] UpdateCategoriaDto categoriaDto)
         {
             Result resultado = await _categoriaService.AtualizaCategoria(id, categoriaDto);
             if (resultado.IsFailed) return NotFound();
