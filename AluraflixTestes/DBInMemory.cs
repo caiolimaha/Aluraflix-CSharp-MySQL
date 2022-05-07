@@ -40,23 +40,23 @@ namespace AluraflixTestes
 
                 _context.Categorias.Add(categoria);
                 _context.Categorias.Add(categoria2);
-                _context.SaveChanges();
 
                 Video video = new Video();
                 video.Id = 1;
                 video.Titulo = "VideoTeste";
                 video.Descricao = "DescriçãoVideoTeste";
-                video.CategoriaId = 20;
+                video.CategoriaId = 1;
 
                 Video video2 = new Video();
                 video2.Id = 2;
                 video2.Titulo = "VideoTeste2";
                 video2.Descricao = "DescriçãoVideoTeste2";
-                video2.CategoriaId = 20;
+                video2.CategoriaId = 2;
 
                
                 _context.Videos.Add(video);
                 _context.Videos.Add(video2);
+
                 _context.SaveChanges();
             }
         }

@@ -24,6 +24,7 @@ namespace AluraflixTestes
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<CategoriaProfile>();
+                cfg.AddProfile<VideoProfile>();
             });
             _mapper = new Mapper(config);
             _categoriaService = new CategoriaService(context, _mapper);
@@ -81,6 +82,16 @@ namespace AluraflixTestes
             var categoria = await _categoriaService.RecuperaCategoriaPorId(2);
             Assert.IsType<Result>(resultado);
             Assert.Equal("CategoriaUpdate", categoria.Titulo);
+        }
+
+        [Fact]
+        public async Task RecuperaVideoPorCategoria()
+        {
+            //Act
+            var videos = await _categoriaService.RecuperaVideoPorCategoria(1);
+
+            //Assert
+            Assert.Single(videos);
         }
 
     }
