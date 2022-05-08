@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aluraflix", "Aluraflix\Aluraflix.csproj", "{0CE61C0E-C375-4D16-A945-C3924177F288}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AluraflixTestes", "AluraflixTestes\AluraflixTestes.csproj", "{E7052703-A9BB-47DD-94DD-A97E98BB2C9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AluraflixTestes", "AluraflixTestes\AluraflixTestes.csproj", "{E7052703-A9BB-47DD-94DD-A97E98BB2C9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsuariosApi", "UsuariosApi\UsuariosApi.csproj", "{8B05BC02-9857-42C7-A8BB-0168352071DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E7052703-A9BB-47DD-94DD-A97E98BB2C9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7052703-A9BB-47DD-94DD-A97E98BB2C9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7052703-A9BB-47DD-94DD-A97E98BB2C9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B05BC02-9857-42C7-A8BB-0168352071DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B05BC02-9857-42C7-A8BB-0168352071DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B05BC02-9857-42C7-A8BB-0168352071DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B05BC02-9857-42C7-A8BB-0168352071DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
