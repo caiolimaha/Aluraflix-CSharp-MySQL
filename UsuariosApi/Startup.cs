@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UsuariosApi.Controllers;
 using UsuariosApi.Data;
+using UsuariosApi.Services;
 
 namespace UsuariosApi
 {
@@ -30,6 +31,7 @@ namespace UsuariosApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<LoginService, LoginService>();
             services.AddScoped<CadastroService, CadastroService>();
             services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
                 .AddEntityFrameworkStores<UserDbContext>();
