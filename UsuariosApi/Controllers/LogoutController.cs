@@ -21,7 +21,7 @@ namespace UsuariosApi.Controllers
         public IActionResult DeslogaUsuario()
         {
             Result resultado = _logoutService.DeslogaUsuario();
-            if (resultado.IsFailed) return Unauthorized(resultado.Errors);
+            if (resultado.IsFailed) return Unauthorized(resultado.Errors.FirstOrDefault());
             return Ok(resultado.Successes.FirstOrDefault());
         }
     }
