@@ -1,6 +1,7 @@
 ﻿using Aluraflix.Data.Dtos;
 using Aluraflix.Services;
 using FluentResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AdicionaVideo([FromBody] CreateVideoDto videoDto)
         {
             ReadVideoDto readDto = await _videoService.AdicionaVideo(videoDto);
