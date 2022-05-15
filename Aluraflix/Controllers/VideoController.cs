@@ -37,6 +37,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin, regular")]
         public async Task<IActionResult> RecuperaVideos([FromQuery] string nomeDoVideo)
         {
             List<ReadVideoDto> readDto = await _videoService.RecuperaVideoPorTitulo(nomeDoVideo);
