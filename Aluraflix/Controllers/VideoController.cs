@@ -29,6 +29,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin, regular", Policy = "IdadeMinima")]
         public async Task<IActionResult> RecuperaVideoPorId(int id)
         {
             ReadVideoDto readDto = await _videoService.RecuperaVideoPorId(id);
@@ -37,7 +38,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin, regular")]
+        [Authorize(Roles = "admin, regular", Policy = "IdadeMinima")]
         public async Task<IActionResult> RecuperaVideos([FromQuery] string nomeDoVideo)
         {
             List<ReadVideoDto> readDto = await _videoService.RecuperaVideoPorTitulo(nomeDoVideo);
@@ -46,6 +47,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AtualizaVideo(int id, [FromBody] UpdateVideoDto videoDto)
         {
             Result resultado = await _videoService.AtualizaVideo(id, videoDto);
@@ -54,6 +56,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeletaVideo(int id)
         {
             Result resultado = await _videoService.DeletaVideo(id);

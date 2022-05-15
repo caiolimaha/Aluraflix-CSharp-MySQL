@@ -13,21 +13,19 @@ namespace UsuariosApi.Controllers
     public class CadastroService
     {
         private IMapper _mapper;
-        private UserManager<IdentityUser<int>> _userManager;
-        private RoleManager<IdentityRole<int>> _roleManager;
+        private UserManager<CustomIdentityUser> _userManager;
 
 
-        public CadastroService(IMapper mapper, UserManager<IdentityUser<int>> userManager, RoleManager<IdentityRole<int>> roleManager)
+        public CadastroService(IMapper mapper, UserManager<CustomIdentityUser> userManager)
         {
             _mapper = mapper;
             _userManager = userManager;
-            _roleManager = roleManager;
         }
 
         public Result CadastraUsuario(CreateUsuarioDto createDto)
         {
             Usuario usuario = _mapper.Map<Usuario>(createDto);
-            IdentityUser<int> usuarioIdentity = _mapper.Map<IdentityUser<int>>(usuario);
+            CustomIdentityUser usuarioIdentity = _mapper.Map<CustomIdentityUser>(usuario);
             var resultadoIdentity = _userManager.CreateAsync(usuarioIdentity, createDto.Password);
             _userManager.AddToRoleAsync(usuarioIdentity, "regular");
             if (resultadoIdentity.Result.Succeeded)

@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UsuariosApi.Controllers;
 using UsuariosApi.Data;
+using UsuariosApi.Models;
 using UsuariosApi.Services;
 
 namespace UsuariosApi
@@ -35,7 +36,7 @@ namespace UsuariosApi
             services.AddScoped<TokenService, TokenService>();
             services.AddScoped<LoginService, LoginService>();
             services.AddScoped<CadastroService, CadastroService>();
-            services.AddIdentity<IdentityUser<int>, IdentityRole<int>>(
+            services.AddIdentity<CustomIdentityUser, IdentityRole<int>>(
                 opt => opt.SignIn.RequireConfirmedEmail = true
                 )
                 .AddEntityFrameworkStores<UserDbContext>()

@@ -1,6 +1,7 @@
 ﻿using Aluraflix.Data.Dtos;
 using Aluraflix.Services;
 using FluentResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AdicionaCategoria([FromBody] CreateCategoriaDto categoriaDto)
         {
             ReadCategoriaDto readDto = await _categoriaService.AdicionaCategoria(categoriaDto);
@@ -27,6 +29,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin, regular")]
         public async Task<IActionResult> RecuperaCategorias()
         {
             List<ReadCategoriaDto> categoriasDto = await _categoriaService.RecuperaCategorias();
@@ -35,6 +38,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin, regular")]
         public async Task<IActionResult> RecuperaCategoriaPorId(int id)
         {
             ReadCategoriaDto readDto = await _categoriaService.RecuperaCategoriaPorId(id);
@@ -43,6 +47,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpGet("{id}/videos")]
+        [Authorize(Roles = "admin, regular", Policy = "IdadeMinima")]
         public async Task<IActionResult> RecuperaVideoPorCategoria(int id)
         {
             List<ReadVideoDto> videos = await _categoriaService.RecuperaVideoPorCategoria(id);
@@ -51,6 +56,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AtualizaCategoria(int id, [FromBody] UpdateCategoriaDto categoriaDto)
         {
             Result resultado = await _categoriaService.AtualizaCategoria(id, categoriaDto);
@@ -59,6 +65,7 @@ namespace Aluraflix.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeletaCategoria(int id)
         {
             Result resultado = await _categoriaService.DeletaCategoria(id);
